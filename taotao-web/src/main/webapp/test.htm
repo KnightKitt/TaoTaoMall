@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://manage.taotao.com/js/jquery-easyui-1.4.1/jquery.min.js"></script>
+<script type="text/javascript">//注意：定义fun回调方法的script标签要在请求数据之前
+	function fun(data){
+		alert(data.abc)
+	}
+</script>
+<script type="text/javascript" src="http://manage.taotao.com/js/test.json"></script>
+<script type="text/javascript">
+	$(function(){
+		alert($);//注：上面的jquery.js的引用以及下面的url都使用绝对路径
+		/*
+		$.ajax({
+			type: "GET",
+			url: "http://manage.taotao.com/js/test.json",
+			dataType: "json",
+			success : function(data){
+				alert(data.abc);
+			}
+
+		})
+		*/
+	})
+</script>
+</head>
+<body>
+
+</body>
+</html>
