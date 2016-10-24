@@ -1,4 +1,4 @@
-package com.taotao.web.service;
+package com.taotao.common.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.taotao.web.httpclient.HttpResult;
+import com.taotao.common.httpclient.HttpResult;
 
 @Service
 public class ApiService implements BeanFactoryAware{
@@ -33,7 +33,7 @@ public class ApiService implements BeanFactoryAware{
     
     private BeanFactory beanFactory;
     
-    @Autowired
+    @Autowired(required = false)
     private RequestConfig requestConfig;
     
     /**

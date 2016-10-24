@@ -3,12 +3,15 @@ package com.taotao.manage.service;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.abel533.entity.Example;
 import com.github.abel533.mapper.Mapper;
 import com.github.pagehelper.PageInfo;
+import com.taotao.common.service.ApiService;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
@@ -22,6 +25,12 @@ public class ItemService extends BaseService<Item>{
     
     @Autowired
     private ItemParamItemService itemParamItemService;
+    
+    @Autowired
+    private ApiService apiService;
+    
+    @Value("${TAOTAO_WEB_URL}")
+    private String TAOTAO_WEB_URL;
 
     public void save(Item item, String desc, String itemParams) {
         
@@ -75,9 +84,17 @@ public class ItemService extends BaseService<Item>{
         itemDesc.setItemId(item.getId());
         itemDesc.setItemDesc(desc);
         this.itemDescService.updateSelective(itemDesc);
-        
+        //更新商品规格参数
         if (null != itemParamItem) {
             this.itemParamItemService.updateSelective(itemParamItem);
+        }
+        
+        try {
+            //通知其他系统该商品已经更新
+            String url = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
+            this.apiService.doPost(url, null);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.taotao.common.service.ApiService;
 import com.taotao.common.service.RedisService;
 import com.taotao.manage.pojo.ItemDesc;
 import com.taotao.manage.pojo.ItemParamItem;
@@ -30,7 +31,7 @@ public class ItemService {
     @Autowired
     private RedisService redisService;
     
-    private static final String REDIS_KEY = "TAOTAO_WEB_ITEM_DETAIL_";
+    public static final String REDIS_KEY = "TAOTAO_WEB_ITEM_DETAIL_";//由于Controller中也会使用到，因此改为public
     private static final Integer REDIS_TIME = 60 * 60 * 24;
 
     /**

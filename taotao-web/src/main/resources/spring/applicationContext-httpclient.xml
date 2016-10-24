@@ -39,7 +39,7 @@
 		factory-bean="requestConfigBuilder" factory-method="build"/>
 	
 	<!-- 定期清理无效的http连接 -->
-	<bean class="com.taotao.web.httpclient.IdleConnectionEvictor">
+	<bean class="com.taotao.common.httpclient.IdleConnectionEvictor">
 		<constructor-arg index="0" ref="connectionManager"/>
 	</bean>
 	

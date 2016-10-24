@@ -1,4 +1,4 @@
-package com.taotao.web.httpclient;
+package com.taotao.common.httpclient;
 
 public class HttpResult {
     
