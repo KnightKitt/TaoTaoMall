@@ -597,11 +597,11 @@ function checkPin(option) {
             nameold = pin;
             option.errorEle.html("<em style='color:#999'>检验中……</em>");
             $.ajax({
-            	url : "http://sso.taotao.com/user/check/"+escape(pin)+"/1?r=" + Math.random(),
-            	dataType : "jsonp",
+            	url : "http://sso.taotao.com/service/user/"+escape(pin)+"/1?r=" + Math.random(),
+            	dataType : "json",
             	success : function(data) {
-                    checkpin = data.data?"1":"0";
-                    if (!data.data) {
+                    checkpin = data?"1":"0";
+                    if (!data) {
                         validateSettings.succeed.run(option);
                         namestate = true;
                     }else {
@@ -652,10 +652,10 @@ function sendMobileCode() {
     $('#mobileCode').removeClass("highlight2");
     // 检测手机号码是否存在
     $.ajax({
-    	url : "http://sso.taotao.com/user/check/"+mobile+"/2?r=" + Math.random(),
-    	dataType : "jsonp",
+    	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
+    	dataType : "json",
     	success : function(result) {
-            if (!result.data) {
+            if (!result) {
                 $('#phone').removeClass().addClass("text");
                 $("#phone_error").html("");
                 $("#phone_error").hide();
@@ -664,7 +664,7 @@ function sendMobileCode() {
                // sendmCode();
             }
 
-            if (result.data) {
+            if (result) {
                 $('#phone').removeClass().addClass('text highlight3');
                 $("#phone_error").html("手机号已绑定，请更换号码或与原账号解绑");
                 $("#phone_error").removeClass().addClass("cue");
@@ -846,10 +846,10 @@ function sendMobileCode1() {
     
     // 检测手机号码是否存在
     $.ajax({
-    	url : "http://sso.taotao.com/user/check/"+mobile+"/2?r=" + Math.random(),
-    	dataType : "jsonp",
+    	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
+    	dataType : "json",
     	success : function(result) {
-            if (!result.data) {
+            if (!result) {
                 $('#phone1').removeClass().addClass("text");
                 $("#phone1_error").html("");
                 $("#phone1_error").hide();
@@ -858,7 +858,7 @@ function sendMobileCode1() {
                 sendmCode1();
                 return;
             }
-            if (result.data) {
+            if (result) {
                 $('#phone1').removeClass().addClass('text highlight3');
                 $("#phone1_error").html("手机号已绑定，请更换号码或与原账号解绑");
                 $("#phone1_error").removeClass().addClass("cue");
@@ -1261,8 +1261,8 @@ function phoneBlur() {
     $("#state").val("");
     // 检测手机号码是否存在
     $.ajax({
-    	url : "http://sso.taotao.com/user/check/"+mobile+"/2?r=" + Math.random(),
-    	dataType : "jsonp",
+    	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
+    	dataType : "json",
     	success : function(result) {
             mobileResult = result.data ? "1" : "0";
             // if (mobileResult != 2) {
@@ -1272,11 +1272,11 @@ function phoneBlur() {
             // $("#sendMobileCode").removeAttr("disabled");
             // }
             $("#sendMobileCode").removeAttr("disabled");
-            if (!result.data) {
+            if (!result) {
                 mobileOkStyle();
             }
 
-            if (result.data) {
+            if (result) {
                 mobileEngagedStyle();
             }
 
@@ -1329,8 +1329,8 @@ function phoneKeyup() {
     $("#state").val("");
     // 检测手机号码是否存在
     $.ajax({
-    	url : "http://sso.taotao.com/user/check/"+mobile+"/2?r=" + Math.random(),
-    	dataType : "jsonp",
+    	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
+    	dataType : "json",
     	success : function(result) {
             mobileResult = result.data ? "1" : "0";
             $("#sendMobileCode").removeAttr("disabled");
