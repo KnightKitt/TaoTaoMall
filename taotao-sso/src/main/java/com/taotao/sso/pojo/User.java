@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 @Table(name = "tb_user")
 public class User {
 
@@ -14,12 +17,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(min = 6, max = 20, message = "用户名的长度在6~20之间")//使用Hibernate-Validator校验框架，添加对应的校验规则
     private String username;
 
+    @Length(min = 6, max = 20, message = "密码的长度在6~20之间")
     private String password;
 
+    @Length(min = 11, max = 11, message = "手机号码的长度必须是11位")
     private String phone;
 
+    @Email(message = "邮箱的格式不对")
     private String email;
 
     private Date created;

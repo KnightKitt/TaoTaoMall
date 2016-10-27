@@ -1,5 +1,8 @@
 package com.taotao.sso.service;
 
+import java.util.Date;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,16 @@ public class UserService {
             return null;
         }
         return this.userMapper.selectOne(record) == null;
+    }
+
+    public Boolean doRegister(User user) {
+        //初始化的处理
+        user.setId(null);
+        user.setCreated(new Date());
+        user.setUpdated(user.getCreated());
+        //加密处理，MD5加密
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+        return this.userMapper.insert(user) == 1;
     }
     
 }

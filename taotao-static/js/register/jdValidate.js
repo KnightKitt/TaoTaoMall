@@ -1264,7 +1264,7 @@ function phoneBlur() {
     	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
     	dataType : "json",
     	success : function(result) {
-            mobileResult = result.data ? "1" : "0";
+            mobileResult = result ? "1" : "0";
             // if (mobileResult != 2) {
             // if ($("#sendMobileCode").attr("disabled")) {
             // return;
@@ -1332,13 +1332,13 @@ function phoneKeyup() {
     	url : "http://sso.taotao.com/service/user/"+mobile+"/2?r=" + Math.random(),
     	dataType : "json",
     	success : function(result) {
-            mobileResult = result.data ? "1" : "0";
+            mobileResult = result ? "1" : "0";
             $("#sendMobileCode").removeAttr("disabled");
-            if (!result.data) {
+            if (!result) {
                 mobileOkStyle();
             }
 
-            if (result.data) {
+            if (result) {
                 mobileEngagedStyle();
             }
 
