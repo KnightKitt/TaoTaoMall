@@ -22,4 +22,10 @@ This project is a record about learning and practing on TaoTaoMall, which comms 
 	这样违反了浏览的安全的原则，导致写入失败。（跨域写cookie的问题）
 	请求过程：用户请求 --> nginx --> tomcat，这时tomcat根本不知道真正的请求来源。
 	解决方案：在nginx的配置文件中添加Host的代理头信息，这样tomcat就可以知道真正的请求来源。
+	
+## 2016-10-28 day07学习
+实现显示当前登录人信息
+1、jquery.cookie插件使用：获取cookie中的token信息
+2、跨域请求：前台页面www.taotao.com请求单点登录系统sso.taotao.com，获取用户信息，注意SpringMVC中配置自定义的JSON转换器，支持JSONP的输出
+3、易遗漏的操作：刷新Redis中用户信息的生存时间，非常重要！
      
