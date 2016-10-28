@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Table(name = "tb_user")
 public class User {
 
@@ -20,6 +22,7 @@ public class User {
     @Length(min = 6, max = 20, message = "用户名的长度在6~20之间")//使用Hibernate-Validator校验框架，添加对应的校验规则
     private String username;
 
+    @JsonIgnore//序列化时忽略这个字段
     @Length(min = 6, max = 20, message = "密码的长度在6~20之间")
     private String password;
 

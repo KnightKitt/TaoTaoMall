@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.taotao.common.utils.CookieUtils;
 import com.taotao.sso.pojo.User;
 import com.taotao.sso.service.UserService;
 
@@ -29,6 +32,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    private static final String COOKIE_NAME = "TT_TOKEN";
+    
     /**
      * 注册页面
      * 
@@ -37,6 +42,46 @@ public class UserController {
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String register(){//返回值类型为String，其代表视图名
         return "register";
+    }
+
+    /**
+     * 登录页面
+     * 
+     * @return
+     */
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String login(){//返回值类型为String，其代表视图名
+        return "login";
+    }
+    
+    /**
+     * 登录
+     * 
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "doLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> doLogin(User user, HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> result = new HashMap<>();
+        String token;
+        try {
+            token = this.userService.doLogin(user.getUsername(), user.getPassword());
+            if (StringUtils.isEmpty(token)) {
+                //登录失败
+                result.put("status", 400);
+                return result;
+            }
+            //登录成功，保存token到cookie
+            CookieUtils.setCookie(request, response, COOKIE_NAME, token);
+            result.put("status", 200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //登录失败
+            result.put("status", 500);
+        }
+        
+        return result;
     }
     
     /**
@@ -62,7 +107,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
-    
+    /**
+     * 注册
+     * 
+     * @param user
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "doRegister", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> doRegister(@Valid User user, BindingResult bindingResult){//使用Hibernate-Validator校验框架，
