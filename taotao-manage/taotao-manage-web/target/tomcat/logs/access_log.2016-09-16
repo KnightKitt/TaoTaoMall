@@ -1,4 +1,0 @@
-0:0:0:0:0:0:0:1 - - [16/Sep/2016:00:08:39 +0800] "GET /rest/item/cat/ HTTP/1.1" 200 3358 http-bio-8080-exec-8 46
-0:0:0:0:0:0:0:1 - - [16/Sep/2016:00:11:00 +0800] "GET /rest/item/cat/?id=438 HTTP/1.1" 200 893 http-bio-8080-exec-4 29
-0:0:0:0:0:0:0:1 - - [16/Sep/2016:00:11:01 +0800] "GET /rest/item/cat/?id=439 HTTP/1.1" 200 2736 http-bio-8080-exec-4 17
-0:0:0:0:0:0:0:1 - - [16/Sep/2016:00:11:07 +0800] "GET /rest/item/param/440 HTTP/1.1" 204 - http-bio-8080-exec-4 4843

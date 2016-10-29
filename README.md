@@ -28,4 +28,14 @@ This project is a record about learning and practing on TaoTaoMall, which comms 
 1、jquery.cookie插件使用：获取cookie中的token信息
 2、跨域请求：前台页面www.taotao.com请求单点登录系统sso.taotao.com，获取用户信息，注意SpringMVC中配置自定义的JSON转换器，支持JSONP的输出
 3、易遗漏的操作：刷新Redis中用户信息的生存时间，非常重要！
-     
+## 2016-10-29 day08学习
+一个简化了的订单系统学习：
+1、了解开发平台（开发者平台）
+2、订单系统接口实现的学习：
+1）MyBatis多表查询时配置文件（xxxMapper.xml）的写法，以及多表查询的延迟加载；
+2）在MySQL JDBC配置的URL中设置连接参数允许一个statement执行多条sql语句（allowMultiQueries=true）
+3、下单按钮功能的实现
+4、清理git库，删除之前提交的多余内容，使用的Git命令如下：
+1）$ git rm --cached -r taotao-manage/*/target/
+2）$ git rm --cached -r itcast-usermanage
+3）$ git rm --cached -r taotao-common/target/
