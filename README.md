@@ -39,3 +39,11 @@ This project is a record about learning and practing on TaoTaoMall, which comms 
 1）$ git rm --cached -r taotao-manage/*/target/
 2）$ git rm --cached -r itcast-usermanage
 3）$ git rm --cached -r taotao-common/target/
+
+## 2016-10-31 day08学习
+SpringMVC拦截器学习：使用拦截器实现用户是否登录的校验
+
+## 2016-11-01 day08学习
+1、提交订单功能实现：使用json字符串构造表单参数；
+2、解决2次查询user的问题：ThreadLocal的使用；
+3、joda-time时间处理工具包的使用

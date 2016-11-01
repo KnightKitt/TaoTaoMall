@@ -96,6 +96,12 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-io</artifactId>
 			</dependency>
+			
+			<!-- 时间操作组件 -->
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+			</dependency>
 		</dependencies>
 		
 		<build>

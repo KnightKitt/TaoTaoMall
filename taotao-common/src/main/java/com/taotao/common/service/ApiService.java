@@ -14,6 +14,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -103,6 +105,38 @@ public class ApiService implements BeanFactoryAware{
             }
             //构造一个form表单式的实体
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
+            //将实体设置到httpPost对象中
+            httpPost.setEntity(formEntity);
+        }
+        
+        CloseableHttpResponse response = null;
+        try {
+            response = getHttpClient().execute(httpPost);
+            return new HttpResult(response.getStatusLine().getStatusCode(), EntityUtils.toString(response.getEntity(), "UTF-8"));
+        }finally{
+            if (response != null) {
+                response.close();
+            }
+        }
+    }
+    
+    /**
+     * 带参数的POST请求，参数类型为JSON字符串
+     * 
+     * @param url
+     * @param json
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    public HttpResult doPostJson(String url, String json) throws ClientProtocolException, IOException{
+        //创建Http POST请求
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setConfig(requestConfig);//请求配置
+        //请求参数
+        if (null != json) {
+            //构造一个form表单式的实体
+            StringEntity formEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
             //将实体设置到httpPost对象中
             httpPost.setEntity(formEntity);
         }
