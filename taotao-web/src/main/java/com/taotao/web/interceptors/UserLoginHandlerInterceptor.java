@@ -23,7 +23,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        UserThreadLocal.set(null);//清空本地线程中的User对象数据
+//        UserThreadLocal.set(null);//清空本地线程中的User对象数据
                                   //注：因为每个请求都是一个独立的线程，但是因为考虑到性能问题，
                                   //Tomcat底层使用线程池，线程并不会真正的销毁，而会被复用，
                                   //这就有可能存在其它请求复用该线程对象时，获取到该线程的ThreadLocal历史数据的情况，因此在使用前要先置空
@@ -54,8 +54,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor{
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception ex) throws Exception {
-        // TODO Auto-generated method stub
-        
+        UserThreadLocal.set(null);//改进的ThreadLocal使用方式
     }
 
 }
