@@ -47,3 +47,15 @@ SpringMVC拦截器学习：使用拦截器实现用户是否登录的校验
 1、提交订单功能实现：使用json字符串构造表单参数；
 2、解决2次查询user的问题：ThreadLocal的使用；
 3、joda-time时间处理工具包的使用
+
+## 2016-11-02/03 day08学习
+搭建solr服务:
+准备商品数据；搭建solr服务；创建taotao core（solr）；集成IKAnalyzer中文分词器；导入数据到solr
+
+## 2016-11-04 day08学习
+1、改进UserThreadLocal的使用；
+2、搭建taotao-search工程：solr与Spring的整合等
+
+## 2016-11-05 day08学习
+实现搜索功能：了解基本的实现过程，还有待深入学习
+

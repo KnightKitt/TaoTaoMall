@@ -106,7 +106,7 @@ window.pageConfig = window.pageConfig || {}, pageConfig.wideVersion = function()
                     default:
                         return
                 }
-                this.src = "/images/blank.gif", this.className = a
+                this.src = "http://static.taotao.com/images/blank.gif", this.className = a
             }
         }
 }, pageConfig.FN_SetPromotion = function(a) {
@@ -142,7 +142,7 @@ window.pageConfig = window.pageConfig || {}, pageConfig.wideVersion = function()
     var d, e = b[0].data, f = [], g = 3 == e.length ? "style2" : "style1";
     f.push('<div class="slide-itemswrap"><ul class="slide-items"><li class="'), f.push(g), f.push('" data-tag="'), f.push(b[0].aid), f.push('">');
     for (var h = 0; h < e.length; h++)
-        d = this.FN_GetCompatibleData(e[h]), f.push('<div class="fore'), f.push(h + 1), f.push('" width="'), f.push(d.width), f.push('" height="'), f.push(d.height), f.push('"><a target="_blank" href="'), f.push(d.href), f.push('" title="'), f.push(d.alt), f.push('"><img src="'), 0 == h ? f.push(d.src) : (f.push('/images/blank.gif" style="background:url('), f.push(d.src), f.push(") no-repeat center 0;")), f.push('" width="'), f.push(d.width), f.push('" height="'), f.push(d.height), f.push('" /></a></div>');
+        d = this.FN_GetCompatibleData(e[h]), f.push('<div class="fore'), f.push(h + 1), f.push('" width="'), f.push(d.width), f.push('" height="'), f.push(d.height), f.push('"><a target="_blank" href="'), f.push(d.href), f.push('" title="'), f.push(d.alt), f.push('"><img src="'), 0 == h ? f.push(d.src) : (f.push('http://static.taotao.com/images/blank.gif" style="background:url('), f.push(d.src), f.push(") no-repeat center 0;")), f.push('" width="'), f.push(d.width), f.push('" height="'), f.push(d.height), f.push('" /></a></div>');
     f.push('</li></ul></div><div class="slide-controls"><span class="curr">1</span></div>'), document.getElementById(a).innerHTML = f.join("")
 }, pageConfig.getHashProbability = function(a, b) {
     function c(a) {
