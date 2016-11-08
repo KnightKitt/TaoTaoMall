@@ -59,3 +59,16 @@ SpringMVC拦截器学习：使用拦截器实现用户是否登录的校验
 ## 2016-11-05 day08学习
 实现搜索功能：了解基本的实现过程，还有待深入学习
 
+## 2016-11-06 
+1、day08学习:分页功能的实现;解决乱码问题;多词搜索的逻辑关系-参考：《solrconfig.xml和schema.xml说明.docx》。
+
+2、RabbitMQ学习
+1）RabbitMQ的安装及其管理页面的熟悉；
+2）RabbitMQ五种模式的学习；
+3）Spring-RabbitMQ项目的学习；
+4）使用RabbitMQ和Spring-RabbitMQ实现消息的发送与接收（通配符模式）
+
+## 2016-11-09 day09学习
+搜索系统中接收消息：使用RabbitMQ和Spring-RabbitMQ实现消息的发送与接收（通配符模式）。
+
+注意：RabbitMQ服务器安装后一般会以Windows服务的形式启动，若没有启动记得启动；记住要启动solr服务器。

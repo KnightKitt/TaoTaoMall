@@ -1,13 +1,17 @@
 package com.taotao.manage.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.abel533.entity.Example;
 import com.github.abel533.mapper.Mapper;
 import com.github.pagehelper.PageInfo;
@@ -31,6 +35,11 @@ public class ItemService extends BaseService<Item>{
     
     @Value("${TAOTAO_WEB_URL}")
     private String TAOTAO_WEB_URL;
+    
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public void save(Item item, String desc, String itemParams) {
         
@@ -53,6 +62,9 @@ public class ItemService extends BaseService<Item>{
             itemParamItem.setParamData(itemParams);
             this.itemParamItemService.save(itemParamItem);
         }
+        
+        //发送消息到MQ的交换机，通知其它系统
+        sendMsg(item.getId(), "insert");
     }
 
     public PageInfo<Item> queryItemList(Integer page, Integer rows) {
@@ -89,10 +101,32 @@ public class ItemService extends BaseService<Item>{
             this.itemParamItemService.updateSelective(itemParamItem);
         }
         
+//        try {
+//            //通知其他系统该商品已经更新
+//            String url = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
+//            this.apiService.doPost(url, null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
+        //发送消息到MQ的交换机，通知其它系统
+        sendMsg(item.getId(), "update");
+    }
+
+    /**
+     * 发送消息到MQ的交换机，通知其它系统
+     * 
+     * @param itemId
+     * @param type
+     */
+    private void sendMsg(Long itemId, String type) {
         try {
-            //通知其他系统该商品已经更新
-            String url = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
-            this.apiService.doPost(url, null);
+            //发送消息到MQ的交换机，通知其它系统
+            Map<String, Object> msg = new HashMap<String, Object>();
+            msg.put("itemId", itemId);
+            msg.put("type", type);
+            msg.put("date", System.currentTimeMillis());
+            this.rabbitTemplate.convertAndSend("item." + type, MAPPER.writeValueAsString(msg));
         } catch (Exception e) {
             e.printStackTrace();
         }

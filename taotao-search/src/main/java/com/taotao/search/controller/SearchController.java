@@ -1,5 +1,7 @@
 package com.taotao.search.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,14 @@ public class SearchController {
     public ModelAndView search(@RequestParam("q")String keyWords, 
             @RequestParam(value = "page", defaultValue = "1")Integer page){
         ModelAndView mv = new ModelAndView("search");
+        
+        //解决乱码问题
+        try {
+            keyWords = new String(keyWords.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+            keyWords = "";
+        }        
         
         //搜索关键字
         mv.addObject("query", keyWords);
