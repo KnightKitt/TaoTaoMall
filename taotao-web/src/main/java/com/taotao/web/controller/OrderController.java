@@ -1,6 +1,7 @@
 package com.taotao.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.taotao.web.bean.Cart;
 import com.taotao.web.bean.Item;
 import com.taotao.web.bean.Order;
 import com.taotao.web.bean.User;
 import com.taotao.web.interceptors.UserLoginHandlerInterceptor;
+import com.taotao.web.service.CartService;
 import com.taotao.web.service.ItemService;
 import com.taotao.web.service.OrderService;
 import com.taotao.web.service.UserService;
@@ -37,6 +40,9 @@ public class OrderController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private CartService cartService;
 
     /**
      * 去订单确认页
@@ -50,6 +56,19 @@ public class OrderController {
         //设置模型数据
         Item item = this.itemService.queryById(itemId);
         mv.addObject("item", item);
+        return mv;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    @RequestMapping(value = "create", method = RequestMethod.GET)
+    public ModelAndView toCartOrder(){
+        ModelAndView mv = new ModelAndView("order-cart-old");
+        List<Cart> carts = this.cartService.queryCartList();
+        //设置模型数据
+        mv.addObject("carts", carts);
         return mv;
     }
     
